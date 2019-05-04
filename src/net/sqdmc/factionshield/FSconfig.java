@@ -253,7 +253,7 @@ public class FSconfig {
 	public void deserialize() {
 		if(shieldStorageConfig == null) loadshieldStorage();
 		
-		//log.info(shieldStorageConfig.toString());
+		log.info(shieldStorageConfig.toString());
 		
 		log.info("[FactionShield] FactionShield: Storage config loaded successfully.");
 
@@ -413,7 +413,7 @@ public class FSconfig {
 			return null;
 		}
 		
-		//if (directory.)
+		if (directory.)
 		new File(directory).mkdir();
 
 		HashMap<ShieldOwner, Shield> map = new HashMap<ShieldOwner, Shield>();
@@ -426,7 +426,7 @@ public class FSconfig {
 			{
 			String result1 = shieldsDB.getString("shieldOwner", "0");
 			
-			//Faction result2 = (Faction) shieldsDB.getList("net.sqdmc.factionshield." + result1 + ".owner");
+			Faction result2 = (Faction) shieldsDB.getList("net.sqdmc.factionshield." + result1 + ".owner");
 			log.info(result1);
 			
 			
@@ -440,23 +440,23 @@ public class FSconfig {
 			Faction faction = factions.get(result1);
 			
 			FactionShieldOwner fShieldOwner = new FactionShieldOwner(faction);
-			//ShieldBase shieldbase = new ShieldBase();
+			ShieldBase shieldbase = new ShieldBase();
 			
 			Shield shield = new Shield(fShieldOwner);
 			
 			shield.setShieldPower(100);
 			shield.setMaxShieldPower(100);
-			//ShieldBase shieldbase = new ShieldBase(null, null, shield, null, Durability, Durability, Durability);
+			ShieldBase shieldbase = new ShieldBase(null, null, shield, null, Durability, Durability, Durability);
 		
-			//log.info(fShieldOwner.getId());
-			//log.info(fShieldOwner.toString());
-			//log.info(shield.getOwner().toString());
+			log.info(fShieldOwner.getId());
+			log.info(fShieldOwner.toString());
+			log.info(shield.getOwner().toString());
 		
 			map.put(fShieldOwner, shield);
 			
 			return map;
 			}
-			//map = (HashMap<ShieldOwner, Shield>) result;
+			map = (HashMap<ShieldOwner, Shield>) result;
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -532,11 +532,11 @@ public class FSconfig {
 		
 		
 		
-		//shieldvalues.get());
+		shieldvalues.get());
 		
 		
 		log.info(shieldvalues.toString());
-		//log.info(world);
+		log.info(world);
 		
 
 		return map;	
@@ -550,7 +550,7 @@ public class FSconfig {
  	
 	// Old method that attempted to save to .dat straight from the HashMaps
 	// Doesn't work do to non-serialable objects.
-	/*
+	
 	public void saveShieldsToFile() {
 		if (plugin.getListener() == null || plugin.getListener().getShields() == null) {
 			return;
@@ -648,5 +648,5 @@ public class FSconfig {
 		}
 
 		return map;
-	}*/
+	}
 }
