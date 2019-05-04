@@ -48,12 +48,12 @@ public class ShieldListener implements Listener {
 		config = plugin.getFSconfig();
 		if (shieldstorage != null)
 		{
-			//config.deserialize();
+			config.deserialize();
 		}
 		else
 		{
 			shieldstorage = new ShieldStorage();
-			//config.deserialize();
+			config.deserialize();
 		}
 	}
 	
@@ -61,7 +61,7 @@ public class ShieldListener implements Listener {
 	public void createShield(SignChangeEvent event) {
 		Player player = event.getPlayer();
 		Faction faction = Board.getFactionAt(event.getBlock().getLocation());
-		//FPlayer fPlayer = new FPlayer();
+		FPlayer fPlayer = new FPlayer();
 					
 		FactionShieldOwner fshieldowner;
 		
@@ -70,7 +70,7 @@ public class ShieldListener implements Listener {
 		String shieldPower = line1;
 		if (line0.equalsIgnoreCase("[shield]") && (line1 != null && !line1.equals("") )) {		
 			fshieldowner = new FactionShieldOwner(faction);
-			//event.setLine(1, player.getName());
+			event.setLine(1, player.getName());
 			event.setLine(1, faction.getTag());
 			event.setLine(2, shieldPower);
 			event.setLine(3, shieldPower);
@@ -132,10 +132,10 @@ public class ShieldListener implements Listener {
 			
 			faction.setPowerLoss(-Integer.parseInt(shieldPower));
 			
-			/*Integer representation = ShieldBlock.getWorld().hashCode() + ShieldBlock.getX() * 2389 + ShieldBlock.getY() * 4027 + ShieldBlock.getZ() * 2053;						
+			Integer representation = ShieldBlock.getWorld().hashCode() + ShieldBlock.getX() * 2389 + ShieldBlock.getY() * 4027 + ShieldBlock.getZ() * 2053;						
 			
 			ShieldDurability.put(representation, 3);
-			setShieldDurability(ShieldDurability);*/
+			setShieldDurability(ShieldDurability);
 		
 			log.info("Sheild created by "+ player.getName());
 			fshieldowner.sendMessage("Shield Created");
@@ -171,10 +171,10 @@ public class ShieldListener implements Listener {
 			shieldstorage.removeShields(fShieldOwner);
 			shieldstorage.removeBlockShieldBase(shieldBase.sponge);
 			shieldstorage.removeBlockShieldBase(shieldBase.sign);
-			//shieldBase.destroy();
+			shieldBase.destroy();
 			
 			int explosionpower = Math.round(shieldBase.shield.getShieldPowerMax() / 4);
-			//log.info("Explosion Power: " + explosionpower + "  MaxShield: " + shieldBase.shield.getShieldPowerMax());
+			log.info("Explosion Power: " + explosionpower + "  MaxShield: " + shieldBase.shield.getShieldPowerMax());
 			
 			if (explosionpower >= 11)
 				explosionpower = 11;
@@ -197,8 +197,8 @@ public class ShieldListener implements Listener {
 		Shield shield = shieldstorage.getShields().get(owner);
 		if (shield == null) {
 			shield =  new Shield(owner);
-			//shield.setShieldPower(100);
-			//shield.setMaxShieldPower(100);
+			shield.setShieldPower(100);
+			shield.setMaxShieldPower(1000);
 			shieldstorage.addShield(owner,shield);
 		}
 		
@@ -243,7 +243,7 @@ public class ShieldListener implements Listener {
 						
 						Block signBlock = targetLoc.getBlock();
 						if (signBlock.getType() == Material.SIGN || signBlock.getType() == Material.SIGN_POST){
-							//log.info("TNT Exploded");
+							log.info("TNT Exploded");
 							
 							Block ShieldBlock = signBlock.getRelative(BlockFace.DOWN);
 							if (ShieldBlock.getType() == Material.SPONGE) {				
@@ -251,8 +251,8 @@ public class ShieldListener implements Listener {
 								
 							    Sign s = (Sign) signBlock.getState();
 							    String shi = s.getLine(0);
-							    //String p = s.getLine(1);
-							    //String fp = s.getLine(1);
+							    String p = s.getLine(1);
+							    String fp = s.getLine(1);
 							    int maxpower = Integer.parseInt(s.getLine(2));
 							    int pow = Integer.parseInt(s.getLine(3));
 
@@ -295,7 +295,7 @@ public class ShieldListener implements Listener {
 										
 										if (checkIfMax(currentDurability)) {
 											// counter has reached max durability
-											//log.info("Hit Max Shield Dura");
+											log.info("Hit Max Shield Dura");
 											TNTBreakShield(ShieldBlock);
 											faction.setPowerLoss(0);
 											ResetTime(representation, targetLoc);
@@ -303,25 +303,25 @@ public class ShieldListener implements Listener {
 										} else {
 											// counter has not reached max durability yet
 											ShieldDurability.put(representation, currentDurability);
-											//log.info("Set already, set Shield Dura");
+											log.info("Set already, set Shield Dura");
 											
 											startNewTimer(representation, shieldBase);
 										}
 									} else {
 										ShieldDurability.put(representation, 1);
-										//log.info("Set New Shield Dura");
+										log.info("Set New Shield Dura");
 										shieldBase.setShieldMaxPower(pow);
 										startNewTimer(representation, shieldBase);
 
 										if (checkIfMax(1)) {
 											TNTBreakShield(ShieldBlock);
 											ResetTime(representation, targetLoc);
-											//log.info("Hit Max");
+											log.info("Hit Max");
 										}
 									}
 
-									//log.info(faction.getTag());
-									//log.info("TNT Denied.");
+									log.info(faction.getTag());
+									log.info("TNT Denied.");
 									
 									event.setCancelled(true);
 									return;
@@ -345,7 +345,7 @@ public class ShieldListener implements Listener {
 	public void RegenPowerLoss(ShieldBase shieldBase)
 	{
 		if (shieldBase != null) {
-			//int max = shieldBase.shield.getShieldPowerMax();
+			int max = shieldBase.shield.getShieldPowerMax();
 			int max = shieldBase.getShieldMaxPower();
 		
 			shieldBase.shield.setShieldPower(max);
@@ -373,7 +373,7 @@ public class ShieldListener implements Listener {
 	
 	private void ResetTime(Integer representation, Location at) {
 		ShieldDurability.remove(representation);
-		//destroyBlockAndDropItem(at);
+		destroyBlockAndDropItem(at);
 
 			if (shieldTimer.get(representation) != null) {
 				shieldTimer.get(representation).cancel();
@@ -441,7 +441,7 @@ public class ShieldListener implements Listener {
 		
 		shieldstorage.setShields(map);
 
-		//shields = map;
+		shields = map;
 	}
 
 	public HashMap<Block, ShieldBase> getShieldsBase() {
@@ -455,7 +455,7 @@ public class ShieldListener implements Listener {
 		}
 
 		shieldstorage.setBlockShieldBase(map);
-		//blockShieldBase = map;
+		blockShieldBase = map;
 	}
 
 }
