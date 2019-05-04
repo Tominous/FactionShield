@@ -27,17 +27,17 @@ public final class FactionShield extends JavaPlugin {
 		
 		config.loadConfig();
 		entityListener.setShieldDurability(config.loadDurabilityFromFile());
-		//entityListener.setShields(config.loadShieldsFromFile());
-		//entityListener.setShieldBase(config.loadShieldsBaseFromFile());
+		entityListener.setShields(config.loadShieldsFromFile());
+		entityListener.setShieldBase(config.loadShieldsBaseFromFile());
 		
 		getServer().getPluginManager().registerEvents(entityListener, this);
 	}
 	
 	public void onDisable(){
 		config.saveDurabilityToFile();
-		//config.saveShieldsToFile();
-		//config.saveShieldsBaseToFile();
-		//config.serialize();
+		config.saveShieldsToFile();
+		config.saveShieldsBaseToFile();
+		config.serialize();
 		
 		log.info(PLUGIN_NAME + " disabled");
 	}
@@ -46,14 +46,14 @@ public final class FactionShield extends JavaPlugin {
 		return config;
 	}
     
-	/*private void registerEvents() {
+	private void registerEvents() {
 		registerEvent(new ShieldListener());
-		//registerEvent(new ShieldBase());
+		registerEvent(new ShieldBase());
 	}
 	
 	public void registerEvent(Listener listener) {
 		pluginmanager.registerEvents(listener, this);
-	}*/
+	}
 	
 	public ShieldListener getListener() {
 		return entityListener;
