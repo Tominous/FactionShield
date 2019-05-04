@@ -30,7 +30,7 @@ public class ShieldBase implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		//result = prime * result + ((sponge == null) ? 0 : sponge.getbgetBlock().hashCode());
+		result = prime * result + ((sponge == null) ? 0 : sponge.getbgetBlock().hashCode());
 		result = prime * result + ((sign == null) ? 0 : sign.getLocation().hashCode());
 		return result;
 	}
@@ -90,8 +90,8 @@ public class ShieldBase implements Serializable {
 	}
 	
 	public String getShieldBase(){
-		//return "Shield" + ".Location.World." + world.getName() + ".X=" + x + ".Y=" + y + ".Z=" + z;
-		//return "Shield" + ".Location.World." + world.getName();
+		return "Shield" + ".Location.World." + world.getName() + ".X=" + x + ".Y=" + y + ".Z=" + z;
+		return "Shield" + ".Location.World." + world.getName();
 		return "Shield." + this.shield.owner.getId();
 	}
 	
