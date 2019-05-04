@@ -69,17 +69,17 @@ public class ShieldStorage implements ConfigurationSerializable {
 
 		Map<String, Object> serial = new LinkedHashMap<String, Object>();
 		
-		//serial.put("Owner", Id);
+		serial.put("Owner", Id);
 		
 		List<Map<String, Object>> subsection = new ArrayList<Map<String, Object>>();
 		for (Map.Entry<ShieldOwner, Shield> set : shields.entrySet())
 		{
-			//set.getKey();
-			//set.getValue().owner.getId();
+			set.getKey();
+			set.getValue().owner.getId();
 			serial.put("Shield", set.getValue().owner.getId());
 		}
 		
-		/*List<Map<String, Object>> subsection = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> subsection = new ArrayList<Map<String, Object>>();
 		{ // New scope for iterator
 			Iterator<Shield> i = shields.values().iterator();
 			while(i.hasNext()) {
@@ -106,7 +106,7 @@ public class ShieldStorage implements ConfigurationSerializable {
 			}
 		}
 		// Add to map
-		serial.put("shieldbase", subsection);*/
+		serial.put("shieldbase", subsection);
 		
 		
 		return serial;
