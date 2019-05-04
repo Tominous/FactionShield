@@ -35,14 +35,14 @@ public final class ShieldTimer extends TimerTask {
 		}
 
 		HashMap<Integer, Integer> map = plugin.getListener().getShieldDurability();
-		//HashMap<Block, ShieldBase> shieldBases = plugin.getListener().getShieldsBase();
+		HashMap<Block, ShieldBase> shieldBases = plugin.getListener().getShieldsBase();
 		
 		if (map == null) {
 			return;
 		}
 
-		//log.info(shieldbase.toString());
-		//log.info(id.toString());
+		log.info(shieldbase.toString());
+		log.info(id.toString());
 		
 		plugin.getListener().RegenPowerLoss(shieldbase);
 		
